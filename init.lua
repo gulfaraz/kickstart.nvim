@@ -924,6 +924,7 @@ require('lazy').setup({
         'yaml',
         'terraform',
         'python',
+        'regex',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
