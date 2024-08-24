@@ -998,5 +998,9 @@ vim.opt.iskeyword:append '-'
 -- cursor column is highlighted
 vim.opt.cursorcolumn = true
 
+-- line limits are highlighted
+vim.opt.colorcolumn = '79,119'
+vim.cmd [[highlight ColorColumn ctermbg=0 guibg=#292e42]]
+
 -- re-open at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
