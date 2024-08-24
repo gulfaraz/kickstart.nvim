@@ -712,6 +712,7 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'brenoprata10/nvim-highlight-colors',
     },
     config = function()
       -- See `:help cmp`
@@ -929,4 +930,11 @@ require('lazy').setup({
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
+-- words can include hyphens
 vim.opt.iskeyword:append '-'
+
+-- cursor column is highlighted
+vim.opt.cursorcolumn = true
+
+-- re-open at last position
+vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
