@@ -750,11 +750,13 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       'brenoprata10/nvim-highlight-colors',
+      'VonHeikemen/lsp-zero.nvim',
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      local cmp_action = require('lsp-zero').cmp_action()
       luasnip.config.setup {}
 
       cmp.setup {
@@ -816,6 +818,10 @@ require('lazy').setup({
 
           -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+
+          -- tab completion
+          ['<Tab>'] = cmp_action.tab_complete(),
+          ['<S-Tab>'] = cmp_action.vim_snippet_prev(),
         },
         sources = {
           {
@@ -826,6 +832,7 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'vim-dadbod-completion' },
         },
       }
     end,
