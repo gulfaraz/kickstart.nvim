@@ -692,40 +692,47 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>tf',
         function()
-          require('conform').format { async = true, lsp_fallback = true }
+          vim.b.disable_autoformat = not vim.b.disable_autoformat
+          -- Notify if autoformat is enabled/disabled
+          local notify = require 'notify'
+          if vim.b.disable_autoformat then
+            notify('Disabled', 'info', { title = 'Format on save' })
+          else
+            notify('Enabled', 'info', { title = 'Format on save' })
+          end
         end,
-        mode = '',
-        desc = '[F]ormat buffer',
+        mode = { 'n', 'v' },
+        desc = '[t]oggle [f]ormat buffer on save',
       },
     },
     opts = {
-      log_level = vim.log.levels.DEBUG,
-      notify_on_error = false,
+      async = false,
+      log_level = vim.log.levels.INFO,
+      notify_on_error = true,
       format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        if vim.b[bufnr].disable_autoformat then
+          return
+        end
         return {
-          timeout_ms = 500,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+          timeout_ms = 1000,
+          lsp_format = 'fallback',
         }
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'black' },
-        --
+        python = { 'black' },
+        php = { 'pint' },
+        html = { 'prettierd' },
+        typescript = { 'prettierd', 'eslint', 'prettier' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd', 'prettier' },
-        typescript = { 'prettierd', 'prettier' },
-        json = { 'prettierd', 'prettier' },
-        html = { 'prettierd', 'prettier' },
-        css = { 'prettierd', 'prettier' },
-        scss = { 'prettierd', 'prettier' },
-        svg = { 'prettierd', 'prettier' },
+        -- Use the "*" filetype to run formatters on all filetypes.
+        -- Use the "_" filetype to run formatters on filetypes that don't
+        -- have other formatters configured.
+        -- ['_'] = { 'prettierd', 'prettier' },
+        ['_'] = { 'prettierd' },
       },
     },
   },
