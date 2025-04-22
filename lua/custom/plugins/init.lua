@@ -49,9 +49,31 @@ return {
           print 'Macro recording stopped'
         end,
       })
+      -- keymap to dismiss noice
+      vim.keymap.set('n', '<leader>d', '<CMD>NoiceDismiss<CR>', { desc = 'noice [d]ismiss' })
+      -- Load telescope extension
+      require('telescope').load_extension 'noice'
     end,
   },
-  { 'tpope/vim-fugitive' },
+  {
+    'tpope/vim-fugitive',
+    init = function()
+      local function fugitive_toggle()
+        for _, win in ipairs(vim.fn.getwininfo()) do
+          if win.variables and win.variables.fugitive_status then
+            vim.cmd(win.winnr .. 'wincmd c') -- Close Fugitive window
+            return
+          end
+        end
+        vim.cmd 'vertical Git' -- Open Fugitive
+        vim.cmd 'vertical resize 80' -- Resize window
+      end
+
+      vim.keymap.set('n', '<leader>gf', '<CMD>Git blame<CR>', { desc = '[g]it [f]ugitive blame' })
+      -- vim.keymap.set('n', '<leader>tg', fugitive_toggle, { desc = '[t]oggle [g]it' })
+      vim.keymap.set('n', '|', fugitive_toggle)
+    end,
+  },
   {
     'brenoprata10/nvim-highlight-colors',
     config = function()
@@ -85,6 +107,8 @@ return {
     init = function()
       vim.g.db_ui_use_nerd_fonts = 1
       vim.g.db_ui_winwidth = 80
+
+      vim.keymap.set('n', '<leader>td', '<CMD>:DBUIToggle<CR>', { desc = '[t]oggle [d]atabase' })
     end,
   },
   {
@@ -95,7 +119,95 @@ return {
       vim.g.vrc_output_buffer_name = '_OUTPUT.json'
       vim.g.vrc_auto_format_response_patterns = { json = 'jq' }
 
-      vim.keymap.set('n', '<leader>rp', ':call VrcQuery()<CR>', { desc = '[R]est [P]ostman' })
+      vim.keymap.set('n', '<leader>p', '<CMD>call VrcQuery()<CR>', { desc = 'rest [p]ostman' })
     end,
+  },
+  { 'wakatime/vim-wakatime', lazy = false },
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    config = function()
+      require('toggleterm').setup {
+        vim.keymap.set({ 'n', 'i' }, '<C-\\>', '<CMD>exe v:count1 . "ToggleTerm size=100 direction=vertical"<CR>'),
+
+        vim.api.nvim_buf_set_keymap(0, 't', '<ESC>', '<C-\\><C-n>', { noremap = true }),
+        vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', '<C-\\><C-n><C-W>k', { noremap = true }),
+      }
+    end,
+  },
+  {
+    'rmagatti/alternate-toggler',
+    config = function()
+      require('alternate-toggler').setup {}
+
+      vim.keymap.set('n', '<leader>ta', '<CMD>:ToggleAlternate<CR>', { desc = '[t]oggle [a]lternate' })
+    end,
+    event = { 'BufReadPost' }, -- lazy load after reading a buffer
+  },
+  {
+    'kdheepak/lazygit.nvim',
+    lazy = true,
+    cmd = {
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+      { '<leader>gL', '<CMD>LazyGit<CR>', desc = '[g]it [L]azy' },
+    },
+  },
+  {
+    'cameron-wags/rainbow_csv.nvim',
+    config = true,
+    ft = {
+      'csv',
+      'tsv',
+      'csv_semicolon',
+      'csv_whitespace',
+      'csv_pipe',
+      'rfc_csv',
+      'rfc_semicolon',
+    },
+    cmd = {
+      'RainbowDelim',
+      'RainbowDelimSimple',
+      'RainbowDelimQuoted',
+      'RainbowMultiDelim',
+    },
+  },
+  {
+    'antosha417/nvim-lsp-file-operations',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      -- Uncomment whichever supported plugin(s) you use
+      -- "nvim-tree/nvim-tree.lua",
+      'nvim-neo-tree/neo-tree.nvim',
+      -- "simonmclean/triptych.nvim"
+    },
+    config = function()
+      require('lsp-file-operations').setup()
+    end,
+  },
+  {
+    'karb94/neoscroll.nvim',
+    opts = {},
+  },
+  {
+    'sphamba/smear-cursor.nvim',
+    opts = {
+      stiffness = 0.55, -- 0.6      [0, 1]
+      trailing_stiffness = 0.5, -- 0.4      [0, 1]
+      stiffness_insert_mode = 0.6, -- 0.4      [0, 1]
+      trailing_stiffness_insert_mode = 0.6, -- 0.4      [0, 1]
+      distance_stop_animating = 0.5, -- 0.1      > 0
+    },
   },
 }
