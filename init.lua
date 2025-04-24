@@ -970,6 +970,7 @@ require('lazy').setup({
   },
   { import = 'custom.plugins' },
 }, {
+  rocks = { enabled = false }, -- disable rocks to fix error in :checkhealth
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
