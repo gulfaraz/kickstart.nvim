@@ -1,0 +1,12 @@
+-- lazydev configures Lua LSP for Neovim config, runtime, and plugins
+-- https://github.com/folke/lazydev.nvim
+
+return {
+  'folke/lazydev.nvim',
+  ft = 'lua',
+  opts = {
+    library = {
+      { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+    },
+  },
+}
