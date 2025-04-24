@@ -13,6 +13,6 @@ return {
   },
   dependencies = { 'nvim-lua/plenary.nvim' },
   keys = {
-    { '<leader>gL', '<CMD>LazyGit<CR>', desc = '[g]it [L]azy' },
+    { '|', '<CMD>LazyGit<CR>', desc = 'lazygit' },
   },
 }
