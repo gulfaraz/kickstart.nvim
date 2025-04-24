@@ -694,7 +694,7 @@ require('lazy').setup(
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     },
 
-    { import = 'custom.plugins' },
+    { import = 'plugins' },
   },
   { rocks = { enabled = false } } -- disable rocks to fix error in :checkhealth
 )
