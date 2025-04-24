@@ -1,3 +1,6 @@
+-- smear-curor animates the cursor with a smear effect
+-- https://github.com/sphamba/smear-cursor.nvim
+
 return {
   'sphamba/smear-cursor.nvim',
   opts = {
