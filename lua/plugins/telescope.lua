@@ -77,9 +77,9 @@ return {
             table.insert(args, pieces[1])
           end
 
-          if pieces[2] then
+          for i = 2, #pieces do
             table.insert(args, '-g')
-            table.insert(args, pieces[2])
+            table.insert(args, pieces[i])
           end
 
           return vim
