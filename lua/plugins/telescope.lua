@@ -18,57 +18,7 @@ return {
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
   config = function()
-    -- Telescope is a fuzzy finder that comes with a lot of different things that
-    -- it can fuzzy find! It's more than just a "file finder", it can search
-    -- many different aspects of Neovim, your workspace, LSP, and more!
-    --
-    -- The easiest way to use Telescope, is to start by doing something like:
-    --  :Telescope help_tags
-    --
-    -- After running this command, a window will open up and you're able to
-    -- type in the prompt window. You'll see a list of `help_tags` options and
-    -- a corresponding preview of the help.
-    --
-    -- Two important keymaps to use while in Telescope are:
-    --  - Insert mode: <c-/>
-    --  - Normal mode: ?
-    --
-    -- This opens a window that shows you all of the keymaps for the current
-    -- Telescope picker. This is really useful to discover what Telescope can
-    -- do as well as how to actually do it!
-
-    -- [[ Configure Telescope ]]
-    -- See `:help telescope` and `:help telescope.setup()`
     require('telescope').setup {
-      -- You can put your default mappings / updates / etc. in here
-      --  All the info you're looking for is in `:help telescope.setup()`
-      --
-      defaults = {
-        vimgrep_arguments = {
-          'rg',
-          '--color=never',
-          '--no-heading',
-          '--with-filename',
-          '--line-number',
-          '--column',
-          '--smart-case',
-          '--unrestricted', -- won't respect .gitignore (etc.) files
-          '--unrestricted', -- search hidden files and directories
-          '--unrestricted', -- search binary files
-          '--glob',
-          '!.git', -- ignore .git directory
-          '--glob',
-          '!node_modules', -- ignore node_modules directory
-          '--glob',
-          '!.yarn', -- ignore .yarn directory
-          '--glob',
-          '!dist', -- ignore dist directory
-          '--glob',
-          '!www', -- ignore www directory
-          '--glob',
-          '!.angular', -- ignore .angular directory
-        },
-      },
       extensions = {
         fzf = {},
         ['ui-select'] = {
@@ -77,34 +27,27 @@ return {
       },
     }
 
-    -- Enable Telescope extensions if they are installed
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
 
-    -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[s]earch [h]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[s]earch [k]eymaps' })
     vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[s]earch [f]iles' })
     vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[s]earch [s]elect telescope' })
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[s]earch current [w]ord' })
-    vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[s]earch by [g]rep' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[s]earch [d]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[s]earch [r]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[s]earch recent files ("." for repeat)' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] find existing buffers' })
 
-    -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()
-      -- You can pass additional configuration to Telescope to change the theme, layout, etc.
       builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
         winblend = 10,
         previewer = false,
       })
     end, { desc = '[/] fuzzy search in buffer' })
 
-    -- It's also possible to pass additional configuration options.
-    --  See `:help telescope.builtin.live_grep()` for information about particular keys
     vim.keymap.set('n', '<leader>s/', function()
       builtin.live_grep {
         grep_open_files = true,
@@ -112,9 +55,78 @@ return {
       }
     end, { desc = '[s]earch [/] in open files' })
 
-    -- Shortcut for searching your Neovim configuration files
     vim.keymap.set('n', '<leader>sn', function()
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[s]earch [n]eovim files' })
+
+    local multigrep = function(opts)
+      opts = opts or {}
+      opts.cwd = opts.cwd or vim.uv.cwd()
+
+      local finder = require('telescope.finders').new_async_job {
+        command_generator = function(prompt)
+          if not prompt or prompt == '' then
+            return nil
+          end
+
+          local pieces = vim.split(prompt, '  ')
+          local args = { 'rg' }
+
+          if pieces[1] then
+            table.insert(args, '-e')
+            table.insert(args, pieces[1])
+          end
+
+          if pieces[2] then
+            table.insert(args, '-g')
+            table.insert(args, pieces[2])
+          end
+
+          return vim
+            .iter({
+              args,
+              {
+                '--color=never',
+                '--no-heading',
+                '--with-filename',
+                '--line-number',
+                '--column',
+                '--smart-case',
+                '--unrestricted', -- won't respect .gitignore (etc.) files
+                '--unrestricted', -- search hidden files and directories
+                '--unrestricted', -- search binary files
+                '--glob',
+                '!.git', -- ignore .git directory
+                '--glob',
+                '!node_modules', -- ignore node_modules directory
+                '--glob',
+                '!.yarn', -- ignore .yarn directory
+                '--glob',
+                '!dist', -- ignore dist directory
+                '--glob',
+                '!www', -- ignore www directory
+                '--glob',
+                '!.angular', -- ignore .angular directory
+              },
+            })
+            :flatten()
+            :totable()
+        end,
+        entry_maker = require('telescope.make_entry').gen_from_vimgrep(opts),
+        cwd = opts.cwd,
+      }
+
+      require('telescope.pickers')
+        .new(opts, {
+          debounce = 100,
+          prompt_title = 'Multi Grep',
+          finder = finder,
+          previewer = require('telescope.config').values.grep_previewer(opts),
+          sorter = require('telescope.sorters').empty(),
+        })
+        :find()
+    end
+
+    vim.keymap.set('n', '<leader>sg', multigrep, { desc = '[s]earch by [g]rep' })
   end,
 }
