@@ -33,7 +33,6 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
 vim.opt.colorcolumn = '79,119'
-vim.cmd [[highlight ColorColumn ctermbg=0 guibg=#292e42]]
 
 vim.opt.scrolloff = 10
 
