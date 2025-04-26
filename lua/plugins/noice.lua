@@ -48,9 +48,10 @@ return {
         print 'Macro recording stopped'
       end,
     })
-    -- keymap to dismiss noice
-    vim.keymap.set('n', '<leader>d', '<CMD>NoiceDismiss<CR>', { desc = 'noice [d]ismiss' })
     -- Load telescope extension
     require('telescope').load_extension 'noice'
   end,
+  keys = {
+    { '<leader>d', mode = 'n', '<CMD>NoiceDismiss<CR>', desc = 'noice [d]ismiss' },
+  },
 }
