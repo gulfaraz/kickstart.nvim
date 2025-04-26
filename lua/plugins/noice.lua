@@ -12,7 +12,7 @@ return {
       },
     },
     views = {
-      vsplit = { size = '50%' },
+      notify = { title = 'Messages' },
     },
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
