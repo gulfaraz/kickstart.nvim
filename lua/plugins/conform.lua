@@ -5,22 +5,6 @@ return {
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
-  keys = {
-    {
-      '<leader>tf',
-      function()
-        vim.b.disable_autoformat = not vim.b.disable_autoformat
-        local notify = require 'notify'
-        if vim.b.disable_autoformat then
-          notify('Disabled', 'info', { title = 'Format on save' })
-        else
-          notify('Enabled', 'info', { title = 'Format on save' })
-        end
-      end,
-      mode = { 'n', 'v' },
-      desc = '[t]oggle [f]ormat buffer on save',
-    },
-  },
   opts = {
     async = false,
     log_level = vim.log.levels.INFO,
@@ -41,6 +25,18 @@ return {
       html = { 'prettierd' },
       typescript = { 'prettierd', 'eslint', 'prettier' },
       ['_'] = { 'prettierd' },
+    },
+  },
+  keys = {
+    {
+      '<leader>tf',
+      mode = { 'n', 'v' },
+      function()
+        vim.b.disable_autoformat = not vim.b.disable_autoformat
+        local message = vim.b.disable_autoformat and 'Disabled' or 'Enabled'
+        require 'notify'(message, 'info', { title = 'Format on Save' })
+      end,
+      desc = '[t]oggle [f]ormat buffer on save',
     },
   },
 }

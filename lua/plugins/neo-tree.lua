@@ -4,14 +4,11 @@
 return {
   'nvim-neo-tree/neo-tree.nvim',
   version = '*',
+  cmd = 'Neotree',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons',
     'MunifTanjim/nui.nvim',
-  },
-  cmd = 'Neotree',
-  keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
   opts = {
     filesystem = {
@@ -25,5 +22,8 @@ return {
         },
       },
     },
+  },
+  keys = {
+    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
 }
