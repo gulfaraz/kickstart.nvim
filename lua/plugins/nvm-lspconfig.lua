@@ -14,6 +14,18 @@ return {
 
     -- Allows extra capabilities provided by nvim-cmp
     'hrsh7th/cmp-nvim-lsp',
+
+    -- lazydev configures Lua LSP for Neovim config, runtime, and plugins
+    -- https://github.com/folke/lazydev.nvim
+    {
+      'folke/lazydev.nvim',
+      ft = 'lua',
+      opts = {
+        library = {
+          { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        },
+      },
+    },
   },
   config = function()
     -- Brief aside: **What is LSP?**
