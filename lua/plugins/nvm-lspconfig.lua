@@ -4,7 +4,10 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    { 'williamboman/mason.nvim', config = true },
+    {
+      'williamboman/mason.nvim',
+      opts = { ui = { border = 'rounded' } },
+    },
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
 

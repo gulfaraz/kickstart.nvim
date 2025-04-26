@@ -1,4 +1,4 @@
-require('lazy').setup(
-  { { import = 'plugins' } },
-  { rocks = { enabled = false } } -- disable rocks to fix error in :checkhealth
-)
+require('lazy').setup({ { import = 'plugins' } }, {
+  ui = { border = 'rounded' },
+  rocks = { enabled = false }, -- disable rocks to fix error in :checkhealth
+})
