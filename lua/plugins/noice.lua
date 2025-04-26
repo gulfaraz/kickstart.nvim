@@ -7,11 +7,6 @@ return {
   opts = {
     routes = {
       {
-        view = 'vsplit',
-        filter = { event = 'msg_show', min_height = 20 },
-        opts = { stop = true },
-      },
-      {
         view = 'notify',
         filter = { event = 'msg_showmode' },
       },
@@ -26,6 +21,9 @@ return {
         ['vim.lsp.util.stylize_markdown'] = true,
         ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
       },
+    },
+    presets = {
+      long_message_to_split = true, -- long messages will be sent to a split
     },
   },
   dependencies = {
