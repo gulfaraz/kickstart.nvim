@@ -118,7 +118,7 @@ return {
           end
         end
 
-        -- The following two autocommands are used to highlight references of the
+        -- The following autocommands are used to highlight references of the
         -- word under your cursor when your cursor rests there for a little while.
         --    See `:help CursorHold` for information about when this is executed
         --
