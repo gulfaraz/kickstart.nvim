@@ -6,17 +6,18 @@ return {
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
   opts = {
-    async = false,
     log_level = vim.log.levels.INFO,
     notify_on_error = true,
     format_on_save = function(bufnr)
-      if vim.b[bufnr].disable_autoformat then
-        return
+      local disable_filetypes = { c = true, cpp = true }
+      if vim.b[bufnr].disable_autoformat or disable_filetypes[vim.bo[bufnr].filetype] then
+        return nil
+      else
+        return {
+          timeout_ms = 500,
+          lsp_format = 'fallback',
+        }
       end
-      return {
-        timeout_ms = 1000,
-        lsp_format = 'fallback',
-      }
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
@@ -28,6 +29,14 @@ return {
     },
   },
   keys = {
+    {
+      '<leader>f',
+      mode = '',
+      function()
+        require('conform').format { async = true, lsp_format = 'fallback' }
+      end,
+      desc = '[f]ormat buffer',
+    },
     {
       '<leader>tf',
       mode = { 'n', 'v' },
