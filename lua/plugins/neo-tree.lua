@@ -24,6 +24,6 @@ return {
     },
   },
   keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '\\', '<CMD>Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
 }
