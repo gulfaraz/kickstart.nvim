@@ -38,4 +38,6 @@ vim.opt.scrolloff = 10
 
 vim.opt.iskeyword:append '-'
 
+vim.opt.confirm = true
+
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
