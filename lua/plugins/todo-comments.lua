@@ -5,5 +5,28 @@ return {
   'folke/todo-comments.nvim',
   event = 'VimEnter',
   dependencies = { 'nvim-lua/plenary.nvim' },
-  opts = { signs = false },
+  opts = {
+    signs = false,
+    keywords = {
+      REFACTOR = { icon = '🛠️', color = 'warning' },
+    },
+  },
+  keys = {
+    {
+      ']t',
+      mode = 'n',
+      function()
+        require('todo-comments').jump_next()
+      end,
+      desc = 'next [t]odo',
+    },
+    {
+      '[t',
+      mode = 'n',
+      function()
+        require('todo-comments').jump_prev()
+      end,
+      desc = 'prev [t]odo',
+    },
+  },
 }
