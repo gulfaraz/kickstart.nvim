@@ -24,7 +24,7 @@ return {
       python = { 'black' },
       php = { 'pint' },
       html = { 'prettierd' },
-      typescript = { 'eslint' },
+      typescript = { 'eslint_d' },
       ['_'] = { 'prettierd' },
     },
   },
