@@ -1,4 +1,4 @@
 -- comment adds support for comments
--- https://github.com/numToStr/Comment.nvim
+-- https://github.com/numtostr/comment.nvim
 
-return { 'numToStr/comment.nvim', opts = {} }
+return { 'numtostr/comment.nvim', opts = {} }

@@ -1,8 +1,8 @@
 -- tailwind-tools is a tailwind integration
--- https://github.com/luckasRanarison/tailwind-tools.nvim
+-- https://github.com/luckasranarison/tailwind-tools.nvim
 
 return {
-  'luckasRanarison/tailwind-tools.nvim',
+  'luckasranarison/tailwind-tools.nvim',
   name = 'tailwind-tools',
   build = ':UpdateRemotePlugins',
   dependencies = {

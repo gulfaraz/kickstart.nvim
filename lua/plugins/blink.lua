@@ -1,5 +1,5 @@
 -- blink is a completion engine
--- https://github.com/Saghen/blink.cmp
+-- https://github.com/saghen/blink.cmp
 
 return {
   'saghen/blink.cmp',
