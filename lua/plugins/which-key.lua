@@ -44,6 +44,7 @@ return {
       { '<leader>s', group = '[s]earch' },
       { '<leader>t', group = '[t]oggle' },
       { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },
+      { '<leader>m', group = '[m]opilot', mode = { 'n', 'v' } },
     },
   },
 }
