@@ -23,8 +23,6 @@ return {
       lua = { 'stylua' },
       python = { 'black' },
       php = { 'pint' },
-      html = { 'prettierd' },
-      typescript = { 'eslint_d' },
       ['_'] = { 'prettierd' },
     },
   },
