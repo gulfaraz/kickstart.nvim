@@ -45,5 +45,6 @@ return {
   end,
   keys = {
     { '<leader>d', mode = 'n', '<CMD>NoiceDismiss<CR>', desc = 'noice [d]ismiss' },
+    { '<leader>sm', mode = 'n', '<CMD>Telescope notify<CR>', desc = '[s]earch [m]messages' },
   },
 }
