@@ -14,7 +14,7 @@ return {
     { 'kristijanhusak/vim-dadbod-completion', lazy = true, ft = { 'sql', 'mysql', 'plsql' } },
   },
   keys = {
-    { '<leader>td', mode = 'n', '<CMD>:DBUIToggle<CR>', desc = '[t]oggle [d]atabase' },
+    { '<leader>tb', mode = 'n', '<CMD>DBUIToggle<CR>', desc = '[t]oggle data[b]ase' },
   },
   init = function()
     vim.g.db_ui_use_nerd_fonts = 1
