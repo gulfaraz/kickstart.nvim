@@ -1,6 +1,8 @@
+local opts = { noremap = true, silent = true }
+
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'exit terminal mode' })
 
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Esc>', '<CMD>nohlsearch<CR>')
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'diagnostic [q]uickfix list' })
 
@@ -10,6 +12,14 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'move focus to the upper window' })
 
 vim.keymap.set({ 'n', 'i' }, '<leader>tr', '<CMD>set rnu!<CR>', { desc = '[t]oggle [r]elative line number' })
+
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
+vim.keymap.set('v', '<', '<gv', opts)
+vim.keymap.set('v', '>', '>gv', opts)
+
+vim.keymap.set('x', '<leader>p', [["_dP]])
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
