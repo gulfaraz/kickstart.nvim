@@ -28,5 +28,10 @@ return {
       end,
       desc = 'prev [t]odo',
     },
+    {
+      '<leader>st',
+      '<CMD>TodoTelescope<CR>',
+      desc = '[s]earch [t]odos',
+    },
   },
 }
