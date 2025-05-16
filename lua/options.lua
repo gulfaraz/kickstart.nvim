@@ -41,3 +41,5 @@ vim.opt.iskeyword:append '-'
 vim.opt.confirm = true
 
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
+
+vim.cmd [[ set completeopt+=noselect ]]
