@@ -40,7 +40,7 @@ return {
       },
     },
     spec = {
-      { '<leader>l', group = '[l]sp' },
+      { 'gr', group = 'LSP' },
       { '<leader>s', group = '[s]earch' },
       { '<leader>t', group = '[t]oggle' },
       { '<leader>g', group = '[g]it', mode = { 'n', 'v' } },

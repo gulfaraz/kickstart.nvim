@@ -3,8 +3,9 @@
 
 return {
   'smjonas/inc-rename.nvim',
+  enabled = false,
   opts = {},
   keys = {
-    { '<leader>lr', mode = 'n', ':IncRename ', desc = '[l]sp [r]ename' },
+    { 'grn', mode = 'n', ':IncRename ', desc = 'LSP: [r]ename' },
   },
 }
