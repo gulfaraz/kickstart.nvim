@@ -32,7 +32,35 @@ return {
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[s]earch [h]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[s]earch [k]eymaps' })
-    vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[s]earch [f]iles' })
+    vim.keymap.set('n', '<leader>sf', function()
+      require('telescope.builtin').find_files {
+        hidden = true,
+        no_ignore = true,
+        no_ignore_parent = true,
+        follow = true,
+        cwd = vim.uv.cwd(),
+        find_command = {
+          'rg',
+          '--files',
+          '--color=never',
+          '--no-ignore',
+          '--hidden',
+          '--follow',
+          '--glob',
+          '!.git',
+          '--glob',
+          '!node_modules',
+          '--glob',
+          '!.yarn',
+          '--glob',
+          '!dist',
+          '--glob',
+          '!www',
+          '--glob',
+          '!.angular',
+        },
+      }
+    end, { desc = '[s]earch [f]iles' })
     vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[s]earch [s]elect telescope' })
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[s]earch current [w]ord' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[s]earch [d]iagnostics' })
