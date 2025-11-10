@@ -265,7 +265,7 @@ return {
       'lua-language-server',
       'mdformat',
       'pint',
-      'postgrestools',
+      'postgres-language-server',
       'prettier',
       'prettierd',
       'pyright',
