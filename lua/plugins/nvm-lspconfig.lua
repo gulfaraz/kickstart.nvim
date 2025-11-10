@@ -245,6 +245,35 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
+      -- cd ~/.local/share/nvim/mason/packages && ls | awk '{print "\""$0"\","}'
+      'angular-language-server',
+      'black',
+      'css-lsp',
+      'css-variables-language-server',
+      'docker-compose-language-service',
+      'dockerfile-language-server',
+      'dot-language-server',
+      'editorconfig-checker',
+      'eslint_d',
+      'eslint-lsp',
+      'fixjson',
+      'gh',
+      'html-lsp',
+      'intelephense',
+      'jq',
+      'json-lsp',
+      'lua-language-server',
+      'mdformat',
+      'pint',
+      'postgrestools',
+      'prettier',
+      'prettierd',
+      'pyright',
+      'sqlfmt',
+      'tailwindcss-language-server',
+      'terraform-ls',
+      'typescript-language-server',
+      'vim-language-server',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
