@@ -246,7 +246,7 @@ return {
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
       -- cd ~/.local/share/nvim/mason/packages && ls | awk '{print "\""$0"\","}'
-      'angular-language-server',
+      -- 'angular-language-server',
       'black',
       'css-lsp',
       'css-variables-language-server',
