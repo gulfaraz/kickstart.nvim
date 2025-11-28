@@ -23,6 +23,7 @@ return {
       lua = { 'stylua' },
       python = { 'black' },
       php = { 'pint' },
+      sql = { 'sqlfmt' },
       ['_'] = { 'prettierd' },
     },
   },
