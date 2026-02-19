@@ -4,7 +4,16 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'exit terminal mode' }
 
 vim.keymap.set('n', '<Esc>', '<CMD>nohlsearch<CR>')
 
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'diagnostic [q]uickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, { desc = 'diagnostic [q]uickfix list' })
+vim.keymap.set('n', '<leader>Q', function()
+  for _, win in ipairs(vim.fn.getwininfo()) do
+    if win.quickfix == 1 then
+      vim.cmd 'cclose'
+      return
+    end
+  end
+  vim.cmd 'copen'
+end, { desc = 'toggle [Q]uickfix list' })
 
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'move focus to the right window' })
