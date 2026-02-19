@@ -39,6 +39,26 @@ return {
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
 
+    -- common glob filters for find functions
+    local find_globs = {
+      '--glob',
+      '!.git', -- ignore .git directory
+      '--glob',
+      '!node_modules', -- ignore node_modules directory
+      '--glob',
+      '!.yarn', -- ignore .yarn directory
+      '--glob',
+      '!dist', -- ignore dist directory
+      '--glob',
+      '!www', -- ignore www directory
+      '--glob',
+      '!.angular', -- ignore .angular directory
+      '--glob',
+      '!__pycache__', -- ignore __pycache__ directory
+      '--glob',
+      '!.venv', -- ignore .venv directory
+    }
+
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[s]earch [h]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[s]earch [k]eymaps' })
@@ -49,26 +69,14 @@ return {
         no_ignore_parent = true,
         follow = true,
         cwd = vim.uv.cwd(),
-        find_command = {
+        find_command = vim.list_extend({
           'rg',
           '--files',
           '--color=never',
           '--no-ignore',
           '--hidden',
           '--follow',
-          '--glob',
-          '!.git',
-          '--glob',
-          '!node_modules',
-          '--glob',
-          '!.yarn',
-          '--glob',
-          '!dist',
-          '--glob',
-          '!www',
-          '--glob',
-          '!.angular',
-        },
+        }, find_globs),
       }
     end, { desc = '[s]earch [f]iles' })
     vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[s]earch [s]elect telescope' })
@@ -122,7 +130,7 @@ return {
           return vim
             .iter({
               args,
-              {
+              vim.list_extend({
                 '--color=never',
                 '--no-heading',
                 '--with-filename',
@@ -132,19 +140,7 @@ return {
                 '--unrestricted', -- won't respect .gitignore (etc.) files
                 '--unrestricted', -- search hidden files and directories
                 '--unrestricted', -- search binary files
-                '--glob',
-                '!.git', -- ignore .git directory
-                '--glob',
-                '!node_modules', -- ignore node_modules directory
-                '--glob',
-                '!.yarn', -- ignore .yarn directory
-                '--glob',
-                '!dist', -- ignore dist directory
-                '--glob',
-                '!www', -- ignore www directory
-                '--glob',
-                '!.angular', -- ignore .angular directory
-              },
+              }, find_globs),
             })
             :flatten()
             :totable()
