@@ -1,5 +1,3 @@
-local opts = { noremap = true, silent = true }
-
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'exit terminal mode' })
 
 vim.keymap.set('n', '<Esc>', '<CMD>nohlsearch<CR>')
@@ -25,6 +23,7 @@ vim.keymap.set({ 'n', 'i' }, '<leader>tr', '<CMD>set rnu!<CR>', { desc = '[t]ogg
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 
+local opts = { noremap = true, silent = true }
 vim.keymap.set('v', '<', '<gv', opts)
 vim.keymap.set('v', '>', '>gv', opts)
 

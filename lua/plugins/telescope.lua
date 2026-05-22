@@ -104,6 +104,12 @@ return {
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[s]earch [n]eovim files' })
 
+    vim.keymap.set('n', '<leader>sx', function()
+      require('telescope.builtin').find_files {
+        search_dirs = { vim.fn.expand '~/Downloads', vim.fn.expand '~/Desktop' },
+      }
+    end, { desc = '[s]earch e[x]ternal' })
+
     local multigrep = function(opts)
       opts = opts or {}
       opts.cwd = opts.cwd or vim.uv.cwd()
