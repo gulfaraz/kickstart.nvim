@@ -10,6 +10,7 @@ return {
     },
     build = 'make tiktoken',
     opts = {
+      model = 'claude-opus-4.8',
       prompts = {
         Improve = {
           prompt = 'improve the selection to a world class level of code quality, readability, and efficiency',
@@ -19,6 +20,7 @@ return {
           end,
         },
       },
+      auto_insert_mode = true,
     },
     keys = {
       { '<leader>mi', '<CMD>CopilotChatImprove<CR>', mode = 'v', desc = 'ask [m]opilot to [i]mprove code' },
