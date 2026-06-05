@@ -24,7 +24,7 @@ return {
       python = { 'black' },
       php = { 'pint' },
       sql = { 'sqlfmt' },
-      ['_'] = { 'prettierd' },
+      ['_'] = { 'prettier', 'prettierd', stop_after_first = true },
     },
   },
   keys = {
