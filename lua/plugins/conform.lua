@@ -34,7 +34,7 @@ return {
       javascriptreact = { 'eslint_d', 'prettier', 'prettierd', stop_after_first = true },
       typescript = { 'eslint_d', 'prettier', 'prettierd', stop_after_first = true },
       typescriptreact = { 'eslint_d', 'prettier', 'prettierd', stop_after_first = true },
-      css = { 'prettier', 'stylelint' },
+      css = { 'stylelint', 'prettier', stop_after_first = true },
       ['_'] = { 'prettier', 'prettierd', stop_after_first = true },
     },
   },
