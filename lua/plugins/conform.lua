@@ -1,6 +1,8 @@
 -- conform is a formatter
 -- https://github.com/stevearc/conform.nvim
 
+local utils = require 'utils'
+
 return {
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
@@ -14,16 +16,25 @@ return {
         return nil
       else
         return {
-          timeout_ms = 1000,
+          timeout_ms = 3000,
           lsp_format = 'fallback',
         }
       end
     end,
+    formatters = {
+      eslint_d = { condition = utils.when_file_matches '^%.?eslint[.r]' },
+      stylelint = { condition = utils.when_file_matches '^%.?stylelint[.r]' },
+    },
     formatters_by_ft = {
       lua = { 'stylua' },
       python = { 'black' },
       php = { 'pint' },
       sql = { 'sqlfmt' },
+      javascript = { 'eslint_d', 'prettier', 'prettierd', stop_after_first = true },
+      javascriptreact = { 'eslint_d', 'prettier', 'prettierd', stop_after_first = true },
+      typescript = { 'eslint_d', 'prettier', 'prettierd', stop_after_first = true },
+      typescriptreact = { 'eslint_d', 'prettier', 'prettierd', stop_after_first = true },
+      css = { 'prettier', 'stylelint' },
       ['_'] = { 'prettier', 'prettierd', stop_after_first = true },
     },
   },
