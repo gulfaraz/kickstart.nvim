@@ -24,8 +24,8 @@ return {
     -- quitOnTopLevelReturn: false
     --
     -- os:
-    --   edit: '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server $NVIM --remote-send ''<CMD>q<CR><CMD>lua EditFromLazygit({{filename}})<CR>'')'
-    --   editAtLine: '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || nvim --server $NVIM --remote-send ''<CMD>q<CR><CMD>lua EditLineFromLazygit({{filename}},{{line}})<CR>'''
+    --   edit: '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server $NVIM --remote-send ''<CMD>bd!<CR><CMD>lua EditFromLazygit({{filename}})<CR>'')'
+    --   editAtLine: '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || nvim --server $NVIM --remote-send ''<CMD>bd!<CR><CMD>lua EditLineFromLazygit({{filename}},{{line}})<CR>'''
 
     function EditLineFromLazygit(file_path, line)
       local path = vim.fn.expand '%:p'
